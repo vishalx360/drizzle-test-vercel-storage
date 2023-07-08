@@ -4,7 +4,7 @@ const getData = async () => {
     try {
         const res = await fetch("http://127.0.0.1:3000/api/todo", {
             method: "GET",
-            cache:"no-store",
+            cache: "no-store",
             headers: {
                 "Content-Type": "application/json"
             }
@@ -30,7 +30,7 @@ const TodoList = async () => {
             {
                 res.data.map((item) => {
                     return (
-                        <div className="bg-gray-100 py-4 px-4 flex items-center gap-x-3 shadow rounded-lg my-5">
+                        <div key={item.id} className="bg-gray-100 py-4 px-4 flex items-center gap-x-3 shadow rounded-lg my-5">
                             {/* Circle */}
                             <div className="h-3 w-3 bg-secondary rounded-full"></div>
                             {/* Task Title */}
