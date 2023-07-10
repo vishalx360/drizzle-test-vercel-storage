@@ -1,4 +1,4 @@
-import { Todo } from "@/lib/drizzle";
+import { Todo } from "@/lib/schema";
 
 const getData = async () => {
     try {
@@ -20,10 +20,9 @@ const getData = async () => {
 }
 
 const TodoList = async () => {
-
     const res: { data: Todo[] } = await getData();
 
-
+    console.log({ DATA: res.data })
     return (
 
         <div className="max-h-[350px] overflow-auto mb-4 ">

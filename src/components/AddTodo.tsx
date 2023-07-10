@@ -1,13 +1,12 @@
 "use client"
 import React, { useState, useTransition } from 'react'
 import Image from "next/image"
-import { NewTodo } from '@/lib/drizzle'
+import { NewTodo } from '@/lib/schema'
 import { useRouter } from "next/navigation";
 
 const AddTodo = () => {
     const [task, setTask] = useState<NewTodo | null>(null);
     const { refresh } = useRouter();
-
 
     const handleSubmit = async () => {
         try {
@@ -17,7 +16,6 @@ const AddTodo = () => {
                     body: JSON.stringify({
                         task: task.task
                     }),
-
                 })
                 refresh();
             }
@@ -29,7 +27,7 @@ const AddTodo = () => {
 
     return (
         <div>
-            <form className='w-full flex gap-x-3'>
+            <form onSubmit={handleSubmit} className='w-full flex gap-x-3'>
                 <input
                     onChange={(e) => setTask({ task: e.target.value })}
                     className='rounded-full w-full py-3.5 px-5 border focus:outline-secondary' type="text" />

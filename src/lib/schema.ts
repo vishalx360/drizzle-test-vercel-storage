@@ -2,17 +2,16 @@ import {
     pgTable,
     serial,
     varchar,
+    timestamp
 } from "drizzle-orm/pg-core";
-import { sql } from "@vercel/postgres";
-
 import { drizzle } from "drizzle-orm/vercel-postgres";
-
-// Types
+import { sql } from "@vercel/postgres";
 import { InferModel } from "drizzle-orm";
 
 export const todoTable = pgTable("todos", {
-    id: serial("id").primaryKey(),
+    id: serial('id').primaryKey(),
     task: varchar("task", { length: 255 }).notNull(),
+    createdAt: timestamp("created_at").defaultNow(),
 })
 
 export type Todo = InferModel<typeof todoTable>;
