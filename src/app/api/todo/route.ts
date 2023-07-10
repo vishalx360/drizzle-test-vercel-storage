@@ -22,7 +22,6 @@ export async function POST(request: NextRequest) {
             const res = await db.insert(todoTable).values({
                 task: req.task,
             }).returning()
-            console.log(res)
             return NextResponse.json({ message: "Data added successfully", data: res })
         } else {
             throw new Error("Task field is required")

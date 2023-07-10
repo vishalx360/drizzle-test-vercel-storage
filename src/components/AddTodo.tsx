@@ -2,11 +2,10 @@
 import React, { useState, useTransition } from 'react'
 import Image from "next/image"
 import { NewTodo } from '@/lib/schema'
-import { useRouter } from "next/navigation";
+import { mutate } from "swr"
 
 const AddTodo = () => {
     const [task, setTask] = useState<NewTodo | null>(null);
-    const { refresh } = useRouter();
 
     const handleSubmit = async () => {
         try {
@@ -17,7 +16,8 @@ const AddTodo = () => {
                         task: task.task
                     }),
                 })
-                refresh();
+                setTask({ task: "" });
+                mutate("/api/todo")
             }
         } catch (error) {
             console.log("error")
@@ -29,6 +29,7 @@ const AddTodo = () => {
         <div>
             <form onSubmit={handleSubmit} className='w-full flex gap-x-3'>
                 <input
+                    value={task?.task}
                     onChange={(e) => setTask({ task: e.target.value })}
                     className='rounded-full w-full py-3.5 px-5 border focus:outline-secondary' type="text" />
                 <button type='button' onClick={handleSubmit} className='p-4 shrink-0 rounded-full bg-gradient-to-b from-primary to-secondary' >
